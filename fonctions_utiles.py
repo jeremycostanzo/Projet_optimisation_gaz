@@ -37,18 +37,18 @@ def c3_ij(D, W, P, i, j):
 def c4(D, W, P):
     return 45 - P
 
-def c4bis(D, W, P):
+def c5(D, W, P):
     return P - 68
 
-def c5(D, W, P, i, j):
-    return 0.3 - [i, j]
+def c6(D, W, P, i, j):
+    return 0.3 - D[i, j]
 
-def c5bis_ij(D, W, P, i, j):
+def c7(D, W, P, i, j):
     return D[i, j] - 1.5
 
-def c6_ij(D, W, P, i, j):
+def c8(D, W, P, i, j):
     return puissance_min - W[i, j]
 
-def c6bis_ij(D, W, P, i, j):
+def c9(D, W, P, i, j):
     return W[i, j] - puissance_max
 
