@@ -12,9 +12,9 @@ def uzawa_fixed_step(fun, grad_fun, ce, jac_ce, ci, jac_ci, x0, l, rho, lambda0,
 		grad_Lagrangienk_xk = grad_fun(xk) + np.matmul(np.transpose(jac_ce(xk)), lambdak) + np.matmul(np.transpose(jac_ci(xk)), muk)
 		pk = -grad_Lagrangienk_xk
 		xk = xk + l*pk;        
-		muk = np.maximum(0, muk + rho*ci(xk))
+	        muk = np.maximum(0, muk + rho*ci(xk))
                 lambdak = lambdak + rho*ce(xk)
-		k = k + 1
+                k = k + 1
 	print("Nombre d'iterations : ", k)
 	print("lambdak : ", lambdak)
         print("muk : ", muk)
