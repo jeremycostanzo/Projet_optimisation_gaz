@@ -15,6 +15,7 @@ P_m = pression_min**2
 D_m = 0.3
 D_M = 1.5
 
+# Données
 L = np.array([[0, 0.5*10**3, None, None, 0.25*10**3], [0.5*10**3, 0, None, None, None],
             [None, None, 0, 0.5*10**3, None], [None, None, 0.5*10**3, 0, 10**3], 
             [0.25*10**3, None, None, 10**3, 0]])
@@ -59,21 +60,26 @@ def grad_f(x):
     D = x[0]
     W = x[1]
     P = x[2]
-    return np.transpose(np.array([alpha*[L[0, 1], L[2, 3], L[0, 4], L[4, 3]] + [beta] + [0, 0, 0, 0, 0]]))
+    grad = np.array([alpha*L[0, 1], alpha*L[2, 3], alpha*L[0, 4], alpha*L[4, 3]] + [beta] + [0, 0, 0, 0, 0])
+    grad.shape = (1, 10)
+    return np.transpose(grad)
 
 
 def ce(x):
     D = x[0]
     W = x[1]
     P = x[2]
-    return np.array([P[i-1] - P[j-1] - lambdaPDC*L[i, j]*Q[i-1, j-1]**2 for i,j in Cana] + [lambdaC*Q[1, 2]*np.log(P[2]/P[1]) - W])
+    ce = np.array([P[i-1] - P[j-1] - lambdaPDC*L[i, j]*Q[i-1, j-1]**2 for i,j in Cana] + [lambdaC*Q[1, 2]*np.log(P[2]/P[1]) - W])
+    ce.shape = (1, 5)
+    return np.transpose(ce)
 
 def ci(x):
     D = x[0]
     W = x[1]
     P = x[2]
-    return np.concatenate(np.array([P[1] - P[2]]), P_m - P, P - P_M, D_m - D, D - D_M, puissance_min - W, puissance_max - W)
-
+    ci = np.concatenate(np.array([P[1] - P[2]]), P_m - P, P - P_M, D_m - D, D - D_M, puissance_min - W, puissance_max - W)
+    ci.shape = (1, 21)
+    return np.transpose(ci)
 
 def Jce(x):
     D = x[0]
@@ -90,12 +96,12 @@ def Jci(x):
                     [0, 0, 0, 0, 0, -1, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0]
+                    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
                     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+                    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
                     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
