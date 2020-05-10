@@ -15,9 +15,25 @@ P_m = pression_min**2
 D_m = 0.3
 D_M = 1.5
 
+q15 = 1
+q45 = 1
+
+
 L = np.array([[0, 0.5*10**3, None, None, 0.25*10**3], [0.5*10**3, 0, None, None, None],
             [None, None, 0, 0.5*10**3, None], [None, None, 0.5*10**3, 0, 10**3], 
             [0.25*10**3, None, None, 10**3, 0]])
+
+D0 = np.array([[0, 1.5, None, None, 1.5], [1.5, 0, None, None, None],
+            [None, None, 0, 1.5, None], [None, None, 1.5, 0, 1.5], 
+            [1.5, None, None, 1.5, 0]])
+
+Q = np.array([[2, 0.5, None, None, q15], [-0.5, 0, 0.5, None, None],
+            [None, -0.5, 0, 0.5, None], [None, None, -0.5, 1, q45], 
+            [-q15, None, None, -q45, 0]])
+
+P0 = np.array([46.32, 45.66, 45.66, 45, 46.05])
+
+W = 0
 
 Cana = [(1, 2), (3, 4), (1, 5), (5, 4)]
 SC = [(2, 3)]
@@ -66,3 +82,4 @@ def ce(D, W, P):
 
 def ci(D, W, P):
     return np.concatenate(np.array([P[1] - P[2]]), P_m - P, P - P_M, D_m - D, D - D_M, puissance_min - W, puissance_max - W)
+
