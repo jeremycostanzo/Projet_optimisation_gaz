@@ -15,10 +15,6 @@ P_m = pression_min**2
 D_m = 0.3
 D_M = 1.5
 
-q15 = 1
-q45 = 1
-
-
 L = np.array([[0, 0.5*10**3, None, None, 0.25*10**3], [0.5*10**3, 0, None, None, None],
             [None, None, 0, 0.5*10**3, None], [None, None, 0.5*10**3, 0, 10**3], 
             [0.25*10**3, None, None, 10**3, 0]])
@@ -27,9 +23,9 @@ D0 = np.array([[0, 1.5, None, None, 1.5], [1.5, 0, None, None, None],
             [None, None, 0, 1.5, None], [None, None, 1.5, 0, 1.5], 
             [1.5, None, None, 1.5, 0]])
 
-Q = np.array([[2, 0.5, None, None, q15], [-0.5, 0, 0.5, None, None],
-            [None, -0.5, 0, 0.5, None], [None, None, -0.5, 1, q45], 
-            [-q15, None, None, -q45, 0]])
+Q = np.array([[2, 0.5, None, None, 0.45], [-0.5, 0, 0.5, None, None],
+            [None, -0.5, 0, 0.5, None], [None, None, -0.5, 1, 0.45], 
+            [-0.45, None, None, -0.45, 0]])
 
 P0 = np.array([46.32, 45.66, 45.66, 45, 46.05])
 
