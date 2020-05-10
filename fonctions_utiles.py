@@ -4,7 +4,7 @@ from scipy import optimize
 
 alpha = 1
 beta = 10
-lambda_c = 1
+lambdaC= 1
 lambdaPDC = 4000
 puissance_min = 0
 puissance_max = 23
@@ -60,61 +60,6 @@ def grad_f(x):
     W = x[1]
     P = x[2]
     return np.transpose(np.array([alpha*[L[0, 1], L[2, 3], L[0, 4], L[4, 3]] + [beta] + [0, 0, 0, 0, 0]]))
-
-
-def c1_ij(x, i, j):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return P[i] - P[j] - (lambdaPDC*L[i, j]*Q[i, j]**2)/(D0[i, j]**(5/2)+D[i, j]**(5/2))**2
-
-def c2(x):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return lambdaC*Q[1, 2]*np.log(P[2]/P[1]) - W - W0
-
-def c3_ij(x, i, j):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return P[i] - P[j]
-
-def c4(x, i):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return P_m - P[i]
-
-def c5(x, i):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return P[i] - P_M
-
-def c6(x, i, j):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return D_m - D[i, j]
-
-def c7(x, i, j):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return D[i, j] - D_M
-
-def c8(x):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return puissance_min - W
-
-def c9(x):
-    D = x[0]
-    W = x[1]
-    P = x[2]
-    return W - puissance_max
 
 
 def ce(x):
