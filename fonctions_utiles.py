@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from scipy import optimize
 
 alpha = 1
 beta = 10
@@ -6,6 +8,12 @@ lambda_c = 1
 lambdaPDC = 4000
 puissance_min = 0
 puissance_max = 23
+pression_max = 68
+pression_min = 45
+P_M = pression_max**2
+P_m = pression_min**2
+D_m = 0.3
+D_M = 1.5
 
 L = np.array([[0, 0.5*10**3, None, None, 0.25*10**3], [0.5*10**3, 0, None, None, None],
             [None, None, 0, 0.5*10**3, None], [None, None, 0.5*10**3, 0, 10**3], 
@@ -34,17 +42,17 @@ def c2_ij(D, W, P, i, j):
 def c3_ij(D, W, P, i, j):
     return P[i] - P[j]
 
-def c4(D, W, P):
-    return 45 - P
+def c4(D, W, P, i):
+    return P_m - P[i]
 
-def c5(D, W, P):
-    return P - 68
+def c5(D, W, P, i):
+    return P[i] - P_M
 
 def c6(D, W, P, i, j):
-    return 0.3 - D[i, j]
+    return D_m - D[i, j]
 
 def c7(D, W, P, i, j):
-    return D[i, j] - 1.5
+    return D[i, j] - D_M
 
 def c8(D, W, P, i, j):
     return puissance_min - W[i, j]
@@ -52,3 +60,6 @@ def c8(D, W, P, i, j):
 def c9(D, W, P, i, j):
     return W[i, j] - puissance_max
 
+
+
+    
