@@ -36,8 +36,8 @@ def f(D, W, P):
 def c1_ij(D, W, P, i, j):
     return P[i] - P[j] - (lambdaPDC*L[i, j]*Q[i, j]**2)/(D0[i, j]**(5/2)+D[i, j]**(5/2))**2
 
-def c2_ij(D, W, P, i, j):
-    return lambdaC*Q[i, j]*np.log(P[j]/P[i]) - W[i, j] - W0[i, j]
+def c2(D, W, P):
+    return lambdaC*Q[1, 2]*np.log(P[2]/P[1]) - W - W0
 
 def c3_ij(D, W, P, i, j):
     return P[i] - P[j]
@@ -54,12 +54,15 @@ def c6(D, W, P, i, j):
 def c7(D, W, P, i, j):
     return D[i, j] - D_M
 
-def c8(D, W, P, i, j):
-    return puissance_min - W[i, j]
+def c8(D, W, P):
+    return puissance_min - W
 
-def c9(D, W, P, i, j):
-    return W[i, j] - puissance_max
+def c9(D, W, P):
+    return W - puissance_max
 
 
+def ce(D, W, P):
+    return np.array([P[i-1] - P[j-1] - lambdaPDC*L[i, j]*Q[i-1, j-1]**2 for i,j in Cana] + [lambdaC*Q[1, 2]*np.log(P[2]/P[1]) - W])
 
-    
+def ci(D, W, P):
+    return np.concatenate(np.array([P[1] - P[2]]), P_m - P, P - P_M, D_m - D, D - D_M, puissance_min - W, puissance_max - W)
